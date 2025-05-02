@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "拍照识别",
+  "navigationStyle": "custom"
+} 

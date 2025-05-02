@@ -1,0 +1,40 @@
+<!--upload.wxml-->
+<view class="upload-container">
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">
+      <text class="back-icon">←</text>
+      <text>返回</text>
+    </view>
+    <view class="title">上传图片识别</view>
+    <view class="placeholder"></view>
+  </view>
+  
+  <view class="content">
+    <view class="image-container" bindtap="{{!hasImage ? 'chooseImage' : ''}}">
+      <block wx:if="{{!hasImage}}">
+        <view class="upload-placeholder">
+          <view class="upload-icon">+</view>
+          <text>点击上传图片</text>
+        </view>
+      </block>
+      <block wx:else>
+        <image class="uploaded-image" src="{{imagePath}}" mode="aspectFit"></image>
+        <view class="clear-btn" catchtap="clearImage">×</view>
+      </block>
+    </view>
+    
+    <view class="tip">
+      <text>请上传清晰的车牌照片</text>
+    </view>
+    
+    <button 
+      class="recognize-btn {{!hasImage || isLoading ? 'disabled' : ''}}" 
+      disabled="{{!hasImage || isLoading}}"
+      bindtap="recognizeImage">
+      {{isLoading ? '识别中...' : '开始识别'}}
+    </button>
+  </view>
+  
+  <!-- 用于图像处理的隐藏Canvas元素 -->
+  <canvas type="2d" id="offscreenCanvas" style="width: 224px; height: 224px; position: absolute; left: -1000px; top: -1000px;"></canvas>
+</view> 

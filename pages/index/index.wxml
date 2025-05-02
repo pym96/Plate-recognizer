@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">车牌识别</text>
+    <view class="recognizer-switch" bindtap="switchRecognizerType">
+      <text class="switch-text">当前: {{
+        recognizerType === 'cloud' ? '云端识别' : 
+        recognizerType === 'onnx' ? 'ONNX模型' : '模拟识别'
+      }}</text>
+    </view>
+  </view>
+
+  <view class="button-container">
+    <button class="function-btn" bindtap="goToCamera">
+      <text>拍照识别</text>
+    </button>
+    <button class="function-btn" bindtap="goToUpload">
+      <text>上传识别</text>
+    </button>
+  </view>
+
+  <view class="result-container" wx:if="{{hasResult}}">
+    <view class="result-header">
+      <text class="result-title">识别结果</text>
+      <view class="close-btn" bindtap="clearResult">×</view>
+    </view>
+    <view class="result-content">
+      <image class="result-image" src="{{plateImage}}" mode="aspectFit"></image>
+      <view class="plate-result">
+        <text class="plate-text">车牌号: {{plateNumber}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 用于图像处理的隐藏Canvas元素 -->
+  <canvas type="2d" id="offscreenCanvas" style="width: 224px; height: 224px; position: absolute; left: -1000px; top: -1000px;"></canvas>
+</view>

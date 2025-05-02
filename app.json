@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/camera/camera",
+    "pages/upload/upload",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "车牌识别",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  },
+  "debug": true,
+  "darkmode": false,
+  "themeLocation": "theme.json",
+  "lazyCodeLoading": "requiredComponents",
+  "requiredBackgroundModes": ["audio"],
+  "requiredPrivateInfos": ["getLocation"],
+  "cameraConfig": {
+    "enable": true
+  },
+  "cloud": true
+}

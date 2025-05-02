@@ -1,0 +1,11 @@
+# Python API服务器依赖
+flask==2.0.1
+werkzeug==2.0.2
+flask-cors==3.0.10
+pillow==9.4.0
+numpy==1.24.2
+requests==2.28.2
+python-dotenv==1.0.0
+# ONNX推理依赖
+onnxruntime==1.14.1
+opencv-python==4.7.0.72 

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "上传图片识别",
+  "navigationStyle": "custom"
+} 

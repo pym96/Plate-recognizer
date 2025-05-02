@@ -1,0 +1,46 @@
+<!--camera.wxml-->
+<view class="camera-container">
+  <!-- 没有相机权限时显示的提示信息 -->
+  <block wx:if="{{!hasCamera}}">
+    <view class="permission-tip">
+      <view class="tip-icon">!</view>
+      <view class="tip-text">{{errorMsg || '需要相机权限才能使用拍照识别功能'}}</view>
+      <button class="auth-btn" bindtap="requestAuth">前往授权</button>
+      <view class="back-link" bindtap="goBack">返回主页</view>
+    </view>
+  </block>
+  
+  <!-- 有相机权限时显示相机 -->
+  <block wx:else>
+    <camera 
+      device-position="{{devicePosition}}" 
+      flash="off" 
+      class="camera"
+      frame-size="large"
+      binderror="error">
+    </camera>
+    
+    <view class="controls">
+      <view class="btn back-btn" bindtap="goBack">返回</view>
+      
+      <view class="capture-area">
+        <view class="capture-btn {{isLoading ? 'disabled' : ''}}" bindtap="takePhoto">
+          <view class="inner-circle"></view>
+        </view>
+      </view>
+      
+      <view class="btn switch-btn" bindtap="toggleCamera">切换</view>
+    </view>
+    
+    <view class="guide-box">
+      <view class="corner top-left"></view>
+      <view class="corner top-right"></view>
+      <view class="corner bottom-left"></view>
+      <view class="corner bottom-right"></view>
+      <text class="guide-text">请将车牌置于框内</text>
+    </view>
+  </block>
+  
+  <!-- 用于图像处理的隐藏Canvas元素 -->
+  <canvas type="2d" id="offscreenCanvas" style="width: 224px; height: 224px; position: absolute; left: -1000px; top: -1000px;"></canvas>
+</view> 
