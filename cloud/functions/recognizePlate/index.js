@@ -1,13 +1,10 @@
-// cloud/functions/recognizePlate/index.js
-// 云函数入口文件
-
 /*
-  注意：这是一个云函数模板，需要根据实际部署环境进行修改
-  
-  对于正式部署，您需要:
-  1. 将ONNX模型部署到云函数或服务器
-  2. 安装必要的依赖
-  3. 根据您的环境配置模型路径
+  注意：这是一个云函数模板，用于WeChat Mini Program的车牌识别
+  已根据后端Flask API输出进行调整，指向正确的API地址
+  前提：
+  1. 后端Flask API运行在 http://172.23.153.5:8888 或公网IP
+  2. 后端需修复模型路径（/Users/panyiming/... 不适用于服务器）
+  3. 生产环境需使用公网域名和生产级WSGI服务器
 */
 
 const cloud = require('wx-server-sdk');
@@ -17,22 +14,17 @@ const request = require('request-promise');
 
 cloud.init();
 
-// 参考qt_ui.py中的模型调用方式
-// 在实际部署中，您需要根据云环境安装相应的推理库
-// 例如使用TensorFlow.js或其他支持ONNX的JavaScript库
-// 以下为示例代码，实际部署需要修改
-
 // 调用本地Python API进行车牌识别
 async function recognizePlateWithPythonAPI(imageBuffer, tempFilePath) {
   console.log('开始调用Python API识别车牌...');
   
   // Python API服务地址
-  // 注意：云函数中无法直接访问localhost
-  // 开发阶段可用内网IP，生产环境需要用公网可访问的域名
-  const apiUrl = 'http://your-python-api-domain:5000/recognize_plate';
+  // 使用云服务器的内网IP和正确端口（8888）
+  // 生产环境需替换为公网可访问的域名或IP，例如：https://your-domain.com:8888
+  const apiUrl = 'http://123.57.63.76:8888/recognize_plate';
   
   try {
-    // 方案1: 如果Python API接受base64图像
+    // 方案1: Python API接受base64图像
     const base64Image = imageBuffer.toString('base64');
     
     const response = await request({
@@ -41,7 +33,8 @@ async function recognizePlateWithPythonAPI(imageBuffer, tempFilePath) {
       body: {
         image: base64Image
       },
-      json: true
+      json: true,
+      timeout: 10000 // 设置10秒超时，防止API响应过慢
     });
     
     console.log('Python API响应:', response);
@@ -52,9 +45,9 @@ async function recognizePlateWithPythonAPI(imageBuffer, tempFilePath) {
       throw new Error('Python API返回错误: ' + (response.error || '未知错误'));
     }
   } catch (error) {
-    console.error('调用Python API失败:', error);
+    console.error('调用Python API失败:', error.message);
     
-    // 调用失败时使用备用模拟方法
+    // 如果后端模型加载失败（例如best.onnx路径错误），返回模拟结果
     console.log('切换到模拟识别方法');
     return simulateRecognition();
   }
@@ -134,4 +127,4 @@ exports.main = async (event, context) => {
       openid: wxContext.OPENID
     };
   }
-}; 
+};

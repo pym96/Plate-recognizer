@@ -26,7 +26,7 @@ const apiRecognizer = {
         
         if (result && result.plateNumber) {
           console.log('apiRecognizer: API识别成功，车牌号:', result.plateNumber);
-          // 直接返回后端识别结果，不做任何修改
+          // 返回车牌号字符串
           resolve(result.plateNumber);
         } else {
           console.error('API识别失败，无识别结果');

@@ -2,15 +2,8 @@
 App({
   globalData: {
     userInfo: null,
-    apiBase: 'http://localhost:8888', // API基础地址
-    // 备用API地址列表，按优先级排序
-    alternativeApis: [
-      'http://127.0.0.1:8888',
-      'http://10.14.125.33:8888',
-      'http://192.168.2.1:8888',
-      'http://172.19.0.1:8888',
-      'http://10.0.2.2:8888'  // Android模拟器专用
-    ]
+    apiBase: 'http://123.57.63.76:8888', // API基础地址
+   
   },
   
   onLaunch() {

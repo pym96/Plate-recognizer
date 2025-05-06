@@ -37,6 +37,7 @@
       <view class="corner top-right"></view>
       <view class="corner bottom-left"></view>
       <view class="corner bottom-right"></view>
+      <view class="guide-border"></view>
       <text class="guide-text">请将车牌置于框内</text>
     </view>
   </block>
